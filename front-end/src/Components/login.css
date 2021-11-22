@@ -22,6 +22,9 @@
 }
 
 .signUpButton{
-  margin-top: 15px;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+
 
 }

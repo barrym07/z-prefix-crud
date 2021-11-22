@@ -1,17 +1,23 @@
 import React from 'react';
 import "./NavBar.css";
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
+  const user = false;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">React Blog</a>
-      <a className="navbar-right" href="#">Sign Up</a>
-      <a className="navbar-right" href="#">Log In</a>
-      <a className="navbar-left" href="#">Create</a>
-      <a className="navbar-left" href="#">Search</a>
+      <Link to="/" className="navbar-brand">Home</Link>
+      <Link to="/create" className="navbar-left">Create Post</Link>
+      {user ? (<botton className="navbar-right">Log Out</botton>) : (
+        <>
+          <Link to="/signup" className="navbar-right">Sign Up</Link>
+          <Link to="/login" className="navbar-right">Login</Link>
+        </>
 
-
+      )
+      }
+      {/* {user && "Log Out"} */}
     </nav>
   );
 
