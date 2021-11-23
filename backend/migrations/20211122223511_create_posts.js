@@ -5,7 +5,7 @@ exports.up = function (knex) {
     table.string('title').notNullable();
     table.string('body').notNullable();
     table.date('created_at').notNullable();
-    table.integer('user_id').notNullable().references('id').inTable('users');
+    table.string('user_name').notNullable().references('username').inTable('users');
   });
 };
 

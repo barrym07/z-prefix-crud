@@ -20,45 +20,49 @@ function getHashedPassword(username) {
 
 
 //blog functions
-function createBlog(title, body, username) {
-  return knex("blogs")
+function createBlog(title, content, username, date) {
+  // I could not get this to work by searching for the user_id so I changed the foreign key to username
+  // let id = (knex().from("users").select("id").where("username", username))
+  return knex("posts")
     .insert({
       title: title,
-      body: body,
-      username: username
-    })
+      body: content,
+      user_name: username,
+      created_at: date
+    }).returning("*")
     .then(data => data);
 }
 
 function getAllBlogs() {
-  return knex("blogs")
+  return knex("posts")
     .select("*")
     .then(data => data);
 }
 //join might not be correct
 function getBlogByUser(username) {
-  return knex("blogs")
-    .join("users", "blogs.user_id", "=", "users.id")
+  return knex("posts")
+    // .join("users", "posts.user_id", "users.id")
     .select("*")
-    .where("username", username)
+    .where("user_name", username)
     .then(data => data);
 }
 
 function deleteBlog(id) {
-  return knex("blogs")
+  return knex("posts")
     .where("id", id)
     .del()
     .then(data => data);
 }
 
-function updateBlog(id, title, body) {
-  return knex("blogs")
+function updateBlog(id, title, content) {
+  return knex("posts")
     .where("id", id)
     .update({
       title: title,
-      body: body
+      body: content
     })
     .then(data => data);
+}
 
 
-  module.exports = { createUser, getHashedPassword };
+module.exports = { createUser, getHashedPassword, createBlog, getAllBlogs, getBlogByUser, deleteBlog, updateBlog };
